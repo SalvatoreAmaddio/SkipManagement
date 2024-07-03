@@ -14,7 +14,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Data\" />
+    <Content Include="Data\mydb.db">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="View\Customer\" />
     <Folder Include="View\Address\" />
     <Folder Include="View\Driver\" />

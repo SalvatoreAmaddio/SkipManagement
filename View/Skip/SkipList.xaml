@@ -7,18 +7,20 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       xmlns:fr="clr-namespace:FrontEnd.Forms;assembly=FrontEnd"
+      xmlns:controller="clr-namespace:SkipManagement.Controller"
+      d:DataContext="{d:DesignInstance Type=controller:SkipListController, IsDesignTimeCreatable=False}"
       Title="SkipList">
 
     <fr:FormList>
         <fr:FormList.Header>
             <Border Background="{StaticResource DefaultWhite}">
                 <StackPanel VerticalAlignment="Center">
-                    <fr:Text Placeholder="Search..."/>
+                    <fr:Text Placeholder="Search..." Text="{Binding Search}"/>
                 </StackPanel>
             </Border>
         </fr:FormList.Header>
 
-        <fr:Lista>
+        <fr:Lista ItemsSource="{Binding RecordSource}" SelectedItem="{Binding CurrentRecord}">
             <fr:Lista.Header>
                 <Grid fr:Definition.RowDefinitions="30" fr:Definition.ColumnDefinitions="100,100,50,50">
                     <Label Content="Skip Size" Grid.Column="1"/>
@@ -30,9 +32,9 @@
                 <DataTemplate>
                     <fr:FormRow>
                         <Grid fr:Definition.RowDefinitions="30" fr:Definition.ColumnDefinitions="100,100,50,50">
-                            <fr:Text/>
-                            <fr:Text Grid.Column="1"/>
-                            <fr:OpenButton IsWithinList="True" Grid.Column="2"/>
+                            <fr:Text Text="{Binding SkipName}"/>
+                            <fr:Text Grid.Column="1" Text="{Binding Price, StringFormat={}{0:C1}, ConverterCulture='en-GB'}"/>
+                            <fr:SaveButton IsWithinList="True" Grid.Column="2"/>
                             <fr:DeleteButton IsWithinList="True" Grid.Column="3"/>
                         </Grid>        
                     </fr:FormRow>
