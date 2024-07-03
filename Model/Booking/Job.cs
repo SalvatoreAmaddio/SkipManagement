@@ -25,11 +25,11 @@ namespace SkipManagement.Model
         #region Constructors
         public Job() { }
         public Job(long id) => _jobId = id;
-        public Job(DbDataReader db) 
+        public Job(DbDataReader db)
         {
             _jobId = db.GetInt64(0);
             _jobName = db.GetString(1);
-            _timeFor = db.GetString(2);
+            _timeFor = db.GetValue(2)?.ToString();
         }
         #endregion
 
