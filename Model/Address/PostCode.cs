@@ -1,4 +1,5 @@
-﻿using Backend.Model;
+﻿using Backend.ExtensionMethods;
+using Backend.Model;
 using FrontEnd.Model;
 using System.Data.Common;
 
@@ -23,13 +24,17 @@ namespace SkipManagement.Model
         #endregion
 
         #region Constructors
-        public PostCode() { }
-        public PostCode(long id) => _postCodeId = id;
-        public PostCode(DbDataReader db)
+        public PostCode()
+        {
+            SelectQry = this.Select().All().Fields("CityName").From().InnerJoin(new City()).Statement();
+        }
+
+        public PostCode(long id) : this() => _postCodeId = id;
+        public PostCode(DbDataReader db) : this()
         {
             _postCodeId = db.GetInt64(0);
             _code = db.GetString(1);
-            _city = new(db.GetInt64(2));
+            _city = new(db.GetInt64(2), db.GetString(3));
         }
         #endregion
 

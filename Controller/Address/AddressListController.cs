@@ -1,7 +1,9 @@
-﻿using Backend.ExtensionMethods;
+﻿using Backend.Database;
+using Backend.ExtensionMethods;
 using Backend.Model;
 using FrontEnd.Controller;
 using FrontEnd.Events;
+using FrontEnd.Source;
 using SkipManagement.Model;
 using System;
 using System.Collections.Generic;
@@ -13,9 +15,12 @@ namespace SkipManagement.Controller
 {
     public class AddressListController : AbstractFormListController<Address>
     {
-        public override AbstractClause InstantiateSearchQry() =>
-        new Address().Select().All().From();
-
+        public RecordSource<PostCode> PostCodes { get; private set; } = new(DatabaseManager.Find<PostCode>()!);
+        public AddressListController() 
+        {
+            OpenWindowOnNew = false;
+            
+        }
         public override void OnOptionFilterClicked(FilterEventArgs e)
         {
         }
@@ -28,5 +33,11 @@ namespace SkipManagement.Controller
         protected override void Open(Address model)
         {
         }
+
+        public override AbstractClause InstantiateSearchQry() =>
+        new Address()
+            .Select().All()
+            .From();
+
     }
 }

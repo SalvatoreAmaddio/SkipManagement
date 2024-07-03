@@ -21,7 +21,6 @@
 
   <ItemGroup>
     <Folder Include="View\Customer\" />
-    <Folder Include="View\Address\" />
     <Folder Include="View\Booking\" />
   </ItemGroup>
 

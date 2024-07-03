@@ -16,6 +16,18 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
+        <Menu>
+            <MenuItem Header="Address">
+                <MenuItem Header="Cities"/>
+                <MenuItem Header="Post Code"/>
+            </MenuItem>
+            <MenuItem Header="Booking">
+                <MenuItem Header="Status"/>
+                <MenuItem Header="Jobs"/>
+                <MenuItem Header="Payment Type"/>
+            </MenuItem>
+        </Menu>
+        
         <TabControl Grid.Row="1">
             <TabItem Header="Skips">
                 <Frame>
@@ -26,7 +38,11 @@
             </TabItem>
             
             <TabItem Header="Addresses">
-
+                <Frame>
+                    <Frame.Content>
+                        <local:AddressList/>
+                    </Frame.Content>
+                </Frame>
             </TabItem>
             
             <TabItem Header="Customers">

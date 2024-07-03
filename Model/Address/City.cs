@@ -29,6 +29,8 @@ namespace SkipManagement.Model
         }
 
         public City(long cityID) => _cityId = cityID;
+
+        public City(long cityID, string name) : this(cityID) => _cityName = name;
         #endregion
 
         public override string ToString() => $"{CityName}";
