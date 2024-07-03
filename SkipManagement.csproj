@@ -13,4 +13,11 @@
 	<SignAssembly>False</SignAssembly>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Controller\" />
+    <Folder Include="Model\" />
+    <Folder Include="Data\" />
+    <Folder Include="View\" />
+  </ItemGroup>
+
 </Project>
