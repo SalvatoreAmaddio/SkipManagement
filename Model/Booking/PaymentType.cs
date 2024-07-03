@@ -21,7 +21,7 @@ namespace SkipManagement.Model
 
         #region Constructors
         public PaymentType() { }
-
+        public PaymentType(long id) => _paymentTypeId = id;
         public PaymentType(DbDataReader db) 
         {
             _paymentTypeId = db.GetInt64(0);

@@ -21,7 +21,7 @@ namespace SkipManagement.Model
 
         #region Constructor
         public Status() { }
-
+        public Status(long id) => _statusID = id;
         public Status(DbDataReader db) 
         {
             _statusID = db.GetInt64(0);

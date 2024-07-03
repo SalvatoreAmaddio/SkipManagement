@@ -24,7 +24,7 @@ namespace SkipManagement.Model
 
         #region Constructors
         public Driver() { }
-
+        public Driver(long id) => _driverid = id;
         public Driver(DbDataReader db) 
         {
             _driverid = db.GetInt64(0);
