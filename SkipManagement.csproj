@@ -14,7 +14,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Controller\" />
     <Folder Include="Data\" />
     <Folder Include="View\Customer\" />
     <Folder Include="View\Address\" />
