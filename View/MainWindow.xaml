@@ -24,15 +24,23 @@
                     </Frame.Content>
                 </Frame>
             </TabItem>
+            
             <TabItem Header="Addresses">
 
             </TabItem>
+            
             <TabItem Header="Customers">
 
             </TabItem>
+            
             <TabItem Header="Drivers">
-
+                <Frame>
+                    <Frame.Content>
+                        <local:DriverList/>
+                    </Frame.Content>
+                </Frame>
             </TabItem>
+            
             <TabItem Header="Bookings">
 
             </TabItem>

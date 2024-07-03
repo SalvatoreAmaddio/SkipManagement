@@ -22,12 +22,17 @@
   <ItemGroup>
     <Folder Include="View\Customer\" />
     <Folder Include="View\Address\" />
-    <Folder Include="View\Driver\" />
     <Folder Include="View\Booking\" />
   </ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="DesktopBusinessAppSharpBuilder" Version="1.0.41" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="View\Driver\DriverList.xaml.cs">
+	    <SubType>Code</SubType>
+	  </Compile>
 	</ItemGroup>
 	
 </Project>
