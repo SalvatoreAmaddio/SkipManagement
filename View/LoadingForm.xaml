@@ -11,6 +11,6 @@
         Title="Welcome" Height="450" Width="450">
 
     <fr:LoadingMask MainWindow="MainWindow">
-        <Image Stretch="Fill" Source="Images/skip.png"/>
+        <Image Stretch="Fill" Source="pack://application:,,,/Images/skip.png"/>
     </fr:LoadingMask>
 </Window>
