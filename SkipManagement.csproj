@@ -22,7 +22,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Images\skip.png" />
+    <Resource Include="Images\skip.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
   <ItemGroup>
