@@ -20,25 +20,26 @@
         <fr:FormList.Header>
             <Border Background="{StaticResource DefaultWhite}">
                 <StackPanel VerticalAlignment="Center">
-                    <fr:Text Placeholder="Search..." Text="{Binding Search}"/>
+                    <fr:Text Placeholder="Search by street name..." Text="{Binding Search}"/>
                 </StackPanel>
             </Border>
         </fr:FormList.Header>
 
         <fr:Lista ItemsSource="{Binding RecordSource}" SelectedItem="{Binding CurrentRecord}">
             <fr:Lista.Header>
-                <Grid fr:Definition.ColumnDefinitions="200,80,120,120,100">
-                    <Label Content="City And Post Code" Grid.Column="1"/>
-                    <Label Content="Street Num" Grid.Column="2"/>
-                    <Label Content="Street Name" Grid.Column="3"/>
-                    <Label Content="Further Info" Grid.Column="4"/>
-                    <Label Content="COMMAND" Grid.Column="5"/>
+                <Grid fr:Definition.ColumnDefinitions="100,100,90,120,120,100">
+                    <fr:HeaderFilter Text="Post Code" IsWithinList="True" ItemsSource="{Binding PostCodesOptions}" Grid.Column="1"/>
+                    <fr:HeaderFilter Text="City" IsWithinList="True" ItemsSource="{Binding CitiesOptions}" Grid.Column="2"/>
+                    <fr:HeaderFilter Text="Street Num" IsWithinList="True" ItemsSource="{Binding StreetNumOptions}" Grid.Column="3"/>
+                    <Label Content="Street Name" Grid.Column="4"/>
+                    <Label Content="Further Info" Grid.Column="5"/>
+                    <Label Content="COMMAND" Grid.Column="6"/>
                 </Grid>
             </fr:Lista.Header>
             <fr:Lista.ItemTemplate>
                 <DataTemplate>
                     <fr:FormRow>
-                        <Grid fr:Definition.RowDefinitions="30" fr:Definition.ColumnDefinitions="200,80,120,120,50,50">
+                        <Grid fr:Definition.RowDefinitions="30" fr:Definition.ColumnDefinitions="100,100,90,120,120,50,50">
                             <fr:Combo ControllerRecordSource="PostCodes" SelectedItem="{Binding PostCode}">
                                 <fr:Combo.ItemTemplate>
                                     <DataTemplate>
@@ -49,11 +50,12 @@
                                     </DataTemplate>
                                 </fr:Combo.ItemTemplate>
                             </fr:Combo>
-                            <fr:Text Grid.Column="1" Text="{Binding StreetNum}"/>
-                            <fr:Text Grid.Column="2" Text="{Binding StreetName}"/>
-                            <fr:Text Grid.Column="3" Text="{Binding FurtherInfo}"/>
-                            <fr:SaveButton IsWithinList="True" Grid.Column="4"/>
-                            <fr:DeleteButton IsWithinList="True" Grid.Column="5"/>
+                            <fr:Text Grid.Column="1" Text="{Binding City, Mode=OneWay}" IsReadOnly="True"/>
+                            <fr:Text Grid.Column="2" Text="{Binding StreetNum}"/>
+                            <fr:Text Grid.Column="3" Text="{Binding StreetName}"/>
+                            <fr:Text Grid.Column="4" Text="{Binding FurtherInfo}"/>
+                            <fr:SaveButton IsWithinList="True" Grid.Column="5"/>
+                            <fr:DeleteButton IsWithinList="True" Grid.Column="6"/>
                         </Grid>
                     </fr:FormRow>
                 </DataTemplate>

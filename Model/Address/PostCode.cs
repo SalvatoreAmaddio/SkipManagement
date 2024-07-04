@@ -30,6 +30,9 @@ namespace SkipManagement.Model
         }
 
         public PostCode(long id) : this() => _postCodeId = id;
+        public PostCode(long id, string code) : this(id) => _code = code;
+        public PostCode(long id, string code, City city) : this(id, code) => _city = city;
+
         public PostCode(DbDataReader db) : this()
         {
             _postCodeId = db.GetInt64(0);
@@ -38,6 +41,6 @@ namespace SkipManagement.Model
         }
         #endregion
 
-        public override string ToString() => $"{Code} - {City}";
+        public override string ToString() => $"{Code}";
     }
 }

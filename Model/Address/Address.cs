@@ -14,6 +14,7 @@ namespace SkipManagement.Model
         private string _streetName = string.Empty;
         private string _furtherInfo = string.Empty;
         private PostCode? _postCode;
+        private City? _city;
         #endregion
 
         #region Properties
@@ -27,11 +28,13 @@ namespace SkipManagement.Model
         public string FurtherInfo { get => _furtherInfo; set => UpdateProperty(ref value, ref _furtherInfo); }
         [FK]
         public PostCode? PostCode { get => _postCode; set => UpdateProperty(ref value, ref _postCode); }
+        public City? City => PostCode?.City;
         #endregion
 
         #region Constructors
-        public Address() 
+        public Address()
         {
+            SelectQry = this.Select().All().Fields("PostCode.Code").Fields("City.CityID").Fields("CityName").From().InnerJoin(nameof(PostCode), "PostCodeID").InnerJoin(nameof(PostCode), nameof(City), "CityID").Statement();
             AfterUpdate += OnAfterUpdate;
         }
 
@@ -42,7 +45,7 @@ namespace SkipManagement.Model
             _streetNum = db.GetString(1);
             _streetName = db.GetString(2);
             _furtherInfo= db.GetString(3);
-            _postCode = new(db.GetInt64(4));
+            _postCode = new(db.GetInt64(4), db.GetString(5), new(db.GetInt64(6), db.GetString(7)));
         }
         #endregion
 
@@ -52,6 +55,8 @@ namespace SkipManagement.Model
                 _streetName = StreetName.FirstLetterCapital();
             if (e.Is(nameof(FurtherInfo)))
                 _furtherInfo = FurtherInfo.FirstLetterCapital();
+            if (e.Is(nameof(PostCode)))
+                RaisePropertyChanged(nameof(City));
         }
 
         public override string ToString() => $"{StreetNum}, {StreetName} - {FurtherInfo}. {PostCode}";
