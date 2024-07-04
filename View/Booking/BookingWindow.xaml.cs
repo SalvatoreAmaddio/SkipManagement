@@ -1,5 +1,6 @@
 ﻿using FrontEnd.ExtensionMethods;
 using SkipManagement.Controller;
+using SkipManagement.Model;
 using System.Windows;
 
 namespace SkipManagement.View
@@ -9,7 +10,11 @@ namespace SkipManagement.View
         public BookingWindow()
         {
             InitializeComponent();
-            this.SetController(new BookingController());
+        }
+
+        public BookingWindow(Booking booking) : this()
+        {
+            this.SetController(new BookingController(booking));
         }
     }
 }

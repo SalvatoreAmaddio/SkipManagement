@@ -23,7 +23,7 @@ namespace SkipManagement.Controller
 
         protected override void Open(Booking model)
         {
-            new BookingWindow().ShowDialog();
+            new BookingWindow(model).ShowDialog();
         }
     }
 }

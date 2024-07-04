@@ -30,6 +30,15 @@ namespace SkipManagement.Model
 
         #region Constructors
         public CustomerAddress() { }
+        public CustomerAddress(long customerAddressID) => _customerAddressID = customerAddressID;
+        public CustomerAddress(long customerAddressID, bool hasLicence, bool hasSuspension, Customer customer, Address address) : this(customerAddressID)
+        {
+            _customer = customer;
+            _address = address;
+            _hasLicence = hasLicence;
+            _hasBaySuspension = hasSuspension;
+        }
+
         public CustomerAddress(DbDataReader db)
         {
             _customerAddressID = db.GetInt64(0);

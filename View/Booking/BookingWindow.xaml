@@ -31,41 +31,41 @@
             <GroupBox Header="Customers' Info" Padding="5" Grid.Column="0">
                 <Grid fr:Definition.RowDefinitions="30,30,30" fr:Definition.ColumnDefinitions="70,200">
                     <Label Content="Customer"/>
-                    <fr:Combo Grid.Column="1"/>
+                    <fr:Combo Grid.Column="1" ItemsSource="{Binding Customers}" SelectedItem="{Binding CurrentRecord.Customer}"/>
                     <Label Grid.Row="1" Content="Address"/>
-                    <fr:Combo Grid.Row="1" Grid.Column="1"/>
+                    <fr:Combo Grid.Row="1" Grid.Column="1" ItemsSource="{Binding Addresses}" SelectedItem="{Binding CurrentRecord.Address}"/>
                     <Label Grid.Row="3" Content="Licence"/>
-                    <CheckBox Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                    <CheckBox Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Right" IsChecked="{Binding CurrentRecord.HasLicence, Mode=OneWay}"/>
                     <Label Grid.Column="1" Grid.Row="3" Content="Bay Suspension"/>
-                    <CheckBox Grid.Column="1" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="90,0,0,0"/>
+                    <CheckBox Grid.Column="1" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="90,0,0,0" IsChecked="{Binding CurrentRecord.IsBaySuspension, Mode=OneWay}"/>
                 </Grid>
             </GroupBox>
 
             <GroupBox Grid.Row="2" Header="Timing" Padding="5" Grid.Column="0">
                 <Grid fr:Definition.RowDefinitions="30,30,30,30" fr:Definition.ColumnDefinitions="80,190">
                     <Label Content="Start Date"/>
-                    <fr:TextBoxDate Grid.Row="0" Grid.Column="1"/>
+                    <fr:TextBoxDate Grid.Row="0" Grid.Column="1" Date="{Binding CurrentRecord.StartDate}"/>
                     <Label Grid.Row="1" Content="Time"/>
                     <fr:Text Grid.Row="1" Grid.Column="1" Text="{Binding CurrentRecord.TimeOf, Converter={StaticResource TimeBox}}"/>
                     <Label Grid.Row="2" Content="Deadline"/>
-                    <fr:TextBoxDate Grid.Row="2" Grid.Column="1"/>
+                    <fr:TextBoxDate Grid.Row="2" Grid.Column="1" Date="{Binding CurrentRecord.Deadline}"/>
                     <Label Grid.Row="3" Content="Countdown"/>
-                    <fr:Text Grid.Row="3" Grid.Column="1"/>
+                    <fr:Text Grid.Row="3" Grid.Column="1" Text="{Binding CurrentRecord.CountdownString, Mode=OneWay}"/>
                 </Grid>
             </GroupBox>
 
             <GroupBox Grid.Row="4" Header="Job Details" Padding="5" Grid.Column="0">
                 <Grid fr:Definition.RowDefinitions="30,30,30,30,30" fr:Definition.ColumnDefinitions="90,180">
                     <Label Content="Skip"/>
-                    <fr:Combo Grid.Column="1" Grid.Row="0"/>
+                    <fr:Combo Grid.Column="1" Grid.Row="0" ItemsSource="{Binding Skips}" SelectedItem="{Binding CurrentRecord.Skip}"/>
                     <Label Grid.Row="1" Content="Job"/>
-                    <fr:Combo Grid.Column="1" Grid.Row="1"/>
+                    <fr:Combo Grid.Column="1" Grid.Row="1" ItemsSource="{Binding Jobs}" SelectedItem="{Binding CurrentRecord.Job}"/>
                     <Label Grid.Row="2" Content="Days for skip"/>
-                    <fr:Text Grid.Column="1" Grid.Row="2"/>
+                    <fr:Text Grid.Column="1" Grid.Row="2" Text="{Binding CurrentRecord.DaysFor}"/>
                     <Label Grid.Row="3" Content="Driver"/>
-                    <fr:Combo Grid.Column="1" Grid.Row="3"/>
+                    <fr:Combo Grid.Column="1" Grid.Row="3" ItemsSource="{Binding Drivers}" SelectedItem="{Binding CurrentRecord.Driver}"/>
                     <Label Grid.Row="4" Content="Status"/>
-                    <fr:Combo Grid.Column="1" Grid.Row="4"/>
+                    <fr:Combo Grid.Column="1" Grid.Row="4" ItemsSource="{Binding Status}" SelectedItem="{Binding CurrentRecord.Status}"/>
                 </Grid>
             </GroupBox>
 
