@@ -15,7 +15,7 @@
     <fr:Form Padding="5">
         <fr:Form.Menu>
             <Menu>
-                <MenuItem Header="Address"/>
+                <MenuItem Header="Address" Command="{Binding OpenAddressWindowCMD}"/>
             </Menu>
         </fr:Form.Menu>
         <Grid>

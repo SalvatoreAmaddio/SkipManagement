@@ -15,11 +15,14 @@
             <RowDefinition Height="20"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-
+        
+        <fr:Curtain x:Name="Curtain"/>
+        
         <Menu>
+            <fr:OpenCurtain Command="{Binding OpenCurtainCMD}"/>
             <MenuItem Header="Address">
-                <MenuItem Header="Cities"/>
-                <MenuItem Header="Post Code"/>
+                <MenuItem Header="Cities" Command="{Binding OpenCityCMD}"/>
+                <MenuItem Header="Post Code" Command="{Binding OpenPostCodeCMD}"/>
             </MenuItem>
             <MenuItem Header="Booking">
                 <MenuItem Header="Status"/>
@@ -28,7 +31,7 @@
             </MenuItem>
         </Menu>
         
-        <TabControl Grid.Row="1">
+        <TabControl x:Name="MainTab" Grid.Row="1">
             <TabItem Header="Skips">
                 <Frame>
                     <Frame.Content>
