@@ -1,6 +1,8 @@
 ﻿using Backend.Database;
 using Backend.ExtensionMethods;
 using Backend.Model;
+using FrontEnd.Dialogs;
+using FrontEnd.Events;
 using FrontEnd.Model;
 using FrontEnd.Source;
 using SkipManagement.Controller;
@@ -16,16 +18,16 @@ namespace SkipManagement.Model
         private CustomerAddress? _customerAddress;
         private Customer? _customer;
         private Address? _address;
-        private DateTime? _startDate;
+        private DateTime? _startDate = DateTime.Today;
         private TimeSpan? _timeof;
         private Skip? _skip;
         private Job? _job;
-        private string _daysFor = string.Empty;
+        private object _timeFor = new();
         private Driver? _driver;
         private PaymentType? _paymentType;
         private DateTime? _deadline;
         private Status? _status;
-        private int _countDown;
+        private object _countDown = new();
         #endregion
 
         #region Properties
@@ -48,7 +50,7 @@ namespace SkipManagement.Model
         public Job? Job { get => _job; set => UpdateProperty(ref value, ref _job); }
 
         [Field]
-        public string DaysFor { get => _daysFor; set => UpdateProperty(ref value, ref _daysFor); }
+        public object TimeFor { get => _timeFor; set => UpdateProperty(ref value, ref _timeFor); }
 
         [FK]
         public Driver? Driver { get => _driver; set => UpdateProperty(ref value, ref _driver); }
@@ -62,7 +64,7 @@ namespace SkipManagement.Model
         [FK]
         public Status? Status { get => _status; set => UpdateProperty(ref value, ref _status); }
 
-        public int Countdown { get => _countDown; set => UpdateProperty(ref value, ref _countDown); }
+        public object Countdown { get => _countDown; set => UpdateProperty(ref value, ref _countDown); }
 
         public Customer? Customer { get => _customer; set => UpdateProperty(ref value, ref _customer); }
         public Address? Address { get => _address; set => UpdateProperty(ref value, ref _address); }
@@ -70,12 +72,14 @@ namespace SkipManagement.Model
         public bool? HasLicence { get => _customerAddress?.HasLicence; }
         public bool? IsBaySuspension { get => _customerAddress?.HasBaySuspension; }
 
-        public string? CountdownString 
+        public string? CountdownString
         { 
             get
             {
-                if (Countdown > 0)
+                if (Countdown is int _int && _int > 0)
                     return $"{Countdown}day(s) left";
+                if (Countdown is string)
+                    return $"N/A";
                 else
                     return $"{Countdown}day(s) delay!";
             }
@@ -86,7 +90,7 @@ namespace SkipManagement.Model
         public Booking() 
         {
             SelectQry = this.Select().All().Fields("CustomerAddress.HasLicence", "CustomerAddress.HasBaySuspension", "Customer.CustomerID", "CustomerName", "Address.AddressID", "StreetNum", "StreetName", "FurtherInfo", "PostCode.PostCodeID", "Code", "City.CityID", "CityName",
-            "SkipName", "JobName", "FirstName", "LastName", "StatusName", "ABS(julianday(Deadline) - julianday(StartDate)) AS CountDown")
+            "SkipName", "JobName", "Job.TimeFor", "FirstName", "LastName", "StatusName", "ABS(julianday(Deadline) - julianday(StartDate)) AS CountDown")
             .From()
             .InnerJoin(nameof(CustomerAddress), "CustomerAddressID")
             .InnerJoin(nameof(CustomerAddress), nameof(Customer), "CustomerID")
@@ -98,6 +102,9 @@ namespace SkipManagement.Model
             .InnerJoin(nameof(Address), nameof(PostCode) ,"PostCodeID")
             .InnerJoin(nameof(PostCode), nameof(City), "CityID")
             .Statement();
+
+            AfterUpdate += OnAfterUpdate;
+            BeforeUpdate += OnBeforeUpdate;
         }
 
         public Booking(DbDataReader db) : this()
@@ -107,17 +114,97 @@ namespace SkipManagement.Model
             _startDate = db.TryFetchDate(2);
             _timeof = db.TryFetchTime(3);
             _skip = new(db.GetInt64(4), db.GetString(23));
-            _job = new(db.GetInt64(5), db.GetString(24));
-            _daysFor = db.GetValue(6)?.ToString();
-            _driver = new(db.GetInt64(7), db.GetString(25), db.GetString(26));
+            _job = new(db.GetInt64(5), db.GetString(24), db.GetValue(25));
+            _timeFor = db.GetValue(6);
+            _driver = new(db.GetInt64(7), db.GetString(26), db.GetString(27));
             _paymentType = new(db.GetInt64(8));
             _deadline = db.TryFetchDate(9);
-            _status = new(db.GetInt64(10), db.GetString(27));
-            _countDown = (int)db.GetDouble(28);
+            _status = new(db.GetInt64(10), db.GetString(28));
+            try 
+            {
+                _countDown = (int)db.GetDouble(29);
+            }
+            catch
+            {
+                _countDown = "N/A";
+            }
             _customer = _customerAddress.Customer;
             _address = _customerAddress.Address;
         }
         #endregion
+
+        private void OnBeforeUpdate(object? sender, BeforeUpdateArgs e)
+        {
+            if (e.Is(nameof(StartDate)))
+            {
+                DateTime? startDate = e.GetNewValueAs<DateTime?>();
+                if (startDate.HasValue && Deadline.HasValue)
+                    DateCheck(startDate > Deadline, e);
+            }
+
+            if (e.Is(nameof(Deadline)))
+            {
+                DateTime? deadline = e.GetNewValueAs<DateTime?>();
+                if (StartDate.HasValue && deadline.HasValue)
+                    DateCheck(StartDate > deadline, e);
+            }
+        }
+
+        private static void DateCheck(bool value, BeforeUpdateArgs e)
+        {
+            if (value)
+            {
+                Failure.Allert("StartDate cannot be bigger than Deadline", "Logic Error");
+                e.Cancel = true;
+            }
+        }
+        private async void OnAfterUpdate(object? sender, FrontEnd.Events.AfterUpdateArgs e)
+        {
+            if (e.Is(nameof(Address)))
+            {
+                await FetchCustomerAddress();
+                return;
+            }
+
+            if (e.Is(nameof(Job)))
+            {
+                if (Job != null)
+                    TimeFor = Job.TimeFor;
+                return;
+            }
+
+            if (e.Is(nameof(StartDate)) || e.Is(nameof(Deadline))) 
+            {
+                if (StartDate.HasValue && Deadline.HasValue)
+                {
+                    Countdown = (Deadline - StartDate).Value.Days;
+                }
+                RaisePropertyChanged(nameof(CountdownString));
+            }
+
+            if (e.Is(nameof(TimeFor))) 
+            {
+                if (TimeFor is decimal _decimal && StartDate.HasValue)
+                {
+                    Deadline = StartDate.Value.AddDays((double)_decimal);
+                }
+                else if (TimeFor is int _int && StartDate.HasValue)
+                {
+                    Deadline = StartDate.Value.AddDays(_int);
+                }
+                else
+                {
+                    Deadline = null;
+                    Countdown = "N/A";
+                }
+
+                if (StartDate.HasValue && Deadline.HasValue) 
+                {
+                    Countdown = (Deadline - StartDate).Value.Days;
+                }
+                RaisePropertyChanged(nameof(CountdownString));
+            }
+        }
 
         public async Task FetchCustomerAddress()
         {
@@ -140,8 +227,10 @@ namespace SkipManagement.Model
             List<QueryParameter> param = [];
             param.Add(new("id", customerID));
             var sql = new Address().Select().All().Fields("PostCode.Code").Fields("City.CityID").Fields("CityName").From().InnerJoin(nameof(PostCode), "PostCodeID").InnerJoin(nameof(PostCode), nameof(City), "CityID").InnerJoin(nameof(CustomerAddress), "AddressID").Where().EqualsTo("CustomerAddress.CustomerID", "@id").Statement();
-            using (AddressListController c = new())
+            using (AddressListController c = new()) 
+            {
                 return await c.CreateFromAsyncList(sql, param);
+            }
         }
 
         public void SetAddress(Address? address) => _address = address;

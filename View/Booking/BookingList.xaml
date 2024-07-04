@@ -8,35 +8,41 @@
       d:DesignHeight="450" d:DesignWidth="800"
       xmlns:fr="clr-namespace:FrontEnd.Forms;assembly=FrontEnd"
       xmlns:controller="clr-namespace:SkipManagement.Controller"
+      xmlns:converter="clr-namespace:SkipManagement.Converters"
       d:DataContext="{d:DesignInstance Type=controller:BookingListController, IsDesignTimeCreatable=False}"
       Language="en-GB"
       Title="BookingList">
 
+    <Page.Resources>
+        <converter:BookingToColorConverter x:Key="BookingToColorConverter"/>
+    </Page.Resources>
+    
     <fr:FormList>
         <fr:Lista ItemsSource="{Binding RecordSource}" SelectedItem="{Binding CurrentRecord}">
             <fr:Lista.Header>
                 <Grid fr:Definition.ColumnDefinitions="70,110,300,85,80,85,80,110,90,100,100">
-                    <fr:HeaderFilter Grid.Column="1" Text="Time"/>
-                    <fr:HeaderFilter Grid.Column="2" Text="Customer"/>
-                    <fr:HeaderFilter Grid.Column="3" Text="Address"/>
-                    <fr:HeaderFilter Grid.Column="4" Text="Start Date"/>
-                    <fr:HeaderFilter Grid.Column="5" Text="Skip"/>
-                    <fr:HeaderFilter Grid.Column="6" Text="Deadline"/>
-                    <fr:HeaderFilter Grid.Column="7" Text="Job"/>
-                    <fr:HeaderFilter Grid.Column="8" Text="Driver"/>
-                    <fr:HeaderFilter Grid.Column="9" Text="Status"/>
-                    <fr:HeaderFilter Grid.Column="10" Text="Countdown"/>
+                    <fr:HeaderFilter Grid.Column="1" Text="Time" IsWithinList="True" ItemsSource="{Binding TimeOptions}"/>
+                    <fr:HeaderFilter Grid.Column="2" Text="Customer" IsWithinList="True" ItemsSource="{Binding CustomerOptions}"/>
+                    <Label Grid.Column="3" Content="Address"/>
+                    <fr:HeaderFilter Grid.Column="4" Text="Start Date" IsWithinList="True" ItemsSource="{Binding StartDateOptions}"/>
+                    <fr:HeaderFilter Grid.Column="5" Text="Skip" IsWithinList="True" ItemsSource="{Binding SkipOptions}"/>
+                    <fr:HeaderFilter Grid.Column="6" Text="Deadline" IsWithinList="True" ItemsSource="{Binding DeadlineOptions}"/>
+                    <fr:HeaderFilter Grid.Column="7" Text="Job" IsWithinList="True" ItemsSource="{Binding JobOptions}"/>
+                    <fr:HeaderFilter Grid.Column="8" Text="Driver" IsWithinList="True" ItemsSource="{Binding DriverOptions}"/>
+                    <fr:HeaderFilter Grid.Column="9" Text="Status" IsWithinList="True" ItemsSource="{Binding StatusOptions}"/>
+                    <fr:HeaderFilter Grid.Column="10" Text="Countdown" IsWithinList="True" ItemsSource="{Binding CountdownOptions}"/>
                     <Label Grid.Column="11" Content="COMMANDS"/>
                 </Grid>
             </fr:Lista.Header>
             <fr:Lista.ItemTemplate>
                 <DataTemplate>
                     <fr:FormRow>
-                        <Grid fr:Definition.RowDefinitions="30" fr:Definition.ColumnDefinitions="70,110,300,85,80,85,80,110,90,100,50,50">
+                        <Grid fr:Definition.RowDefinitions="30" fr:Definition.ColumnDefinitions="70,110,300,85,80,85,80,110,90,100,50,50" Background="{Binding ., Mode=TwoWay, Converter={StaticResource BookingToColorConverter}}">
                             <Grid.Resources>
                                 <Style TargetType="Label">
                                     <Setter Property="VerticalAlignment" Value="Center"/>
                                     <Setter Property="HorizontalAlignment" Value="Center"/>
+                                    <Setter Property="Foreground" Value="White"/>
                                 </Style>
                             </Grid.Resources>
                             <Label Content="{Binding TimeOf, Converter={StaticResource TimeBox}}"/>

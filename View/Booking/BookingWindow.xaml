@@ -11,22 +11,10 @@
         Language="en-GB"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
-        Title="Booking Window" Height="600" Width="500">
+        Title="Booking Window" Height="625" Width="500">
 
     <fr:Form Padding="5">
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="300"/>
-                <ColumnDefinition Width="200"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="120"/>
-                <RowDefinition Height="10"/>
-                <RowDefinition Height="155"/>
-                <RowDefinition Height="10"/>
-                <RowDefinition Height="185"/>
-                <RowDefinition Height="35"/>
-            </Grid.RowDefinitions>
+        <Grid fr:Definition.ColumnDefinitions="300,200" fr:Definition.RowDefinitions="120,5,155,5,185,68">
 
             <GroupBox Header="Customers' Info" Padding="5" Grid.Column="0">
                 <Grid fr:Definition.RowDefinitions="30,30,30" fr:Definition.ColumnDefinitions="70,200">
@@ -50,7 +38,7 @@
                     <Label Grid.Row="2" Content="Deadline"/>
                     <fr:TextBoxDate Grid.Row="2" Grid.Column="1" Date="{Binding CurrentRecord.Deadline}"/>
                     <Label Grid.Row="3" Content="Countdown"/>
-                    <fr:Text Grid.Row="3" Grid.Column="1" Text="{Binding CurrentRecord.CountdownString, Mode=OneWay}"/>
+                    <fr:Text Grid.Row="3" Grid.Column="1" Text="{Binding CurrentRecord.CountdownString, Mode=OneWay}" IsReadOnly="True"/>
                 </Grid>
             </GroupBox>
 
@@ -61,7 +49,7 @@
                     <Label Grid.Row="1" Content="Job"/>
                     <fr:Combo Grid.Column="1" Grid.Row="1" ItemsSource="{Binding Jobs}" SelectedItem="{Binding CurrentRecord.Job}"/>
                     <Label Grid.Row="2" Content="Days for skip"/>
-                    <fr:Text Grid.Column="1" Grid.Row="2" Text="{Binding CurrentRecord.DaysFor}"/>
+                    <fr:Text Grid.Column="1" Grid.Row="2" Text="{Binding CurrentRecord.TimeFor}"/>
                     <Label Grid.Row="3" Content="Driver"/>
                     <fr:Combo Grid.Column="1" Grid.Row="3" ItemsSource="{Binding Drivers}" SelectedItem="{Binding CurrentRecord.Driver}"/>
                     <Label Grid.Row="4" Content="Status"/>
@@ -69,14 +57,18 @@
                 </Grid>
             </GroupBox>
 
-            <Button Content="NEXT JOB" Grid.Row="5" VerticalAlignment="Bottom" HorizontalAlignment="Left" Padding="5"/>
-
+            <GroupBox Header="Payment Method" Grid.Row="5" Padding="5">
+                <fr:Combo Grid.Column="0" Placeholder="Payment Method" SelectedItem="{Binding CurrentRecord.PaymentType}" ItemsSource="{Binding PaymentTypes}"/>
+            </GroupBox>                        
+            
             <GroupBox Header="COMMANDS" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Padding="5">
                 <StackPanel>
                     <fr:SaveButton Height="30" HorizontalAlignment="Stretch"/>
                     <fr:DeleteButton Height="30" HorizontalAlignment="Stretch"/>
                 </StackPanel>
             </GroupBox>
+
+            <Button Content="NEXT JOB" Grid.Column="1" Grid.Row="6" VerticalAlignment="Bottom" HorizontalAlignment="Center" Padding="5"/>
         </Grid>
     </fr:Form>
 </Window>

@@ -15,9 +15,13 @@ namespace SkipManagement.Controller
         public RecordSource<Job> Jobs { get; private set; } = new(DatabaseManager.Find<Job>()!);
         public RecordSource<Driver> Drivers { get; private set; } = new(DatabaseManager.Find<Driver>()!);
         public RecordSource<Status> Status { get; private set; } = new(DatabaseManager.Find<Status>()!);
+        public RecordSource<PaymentType> PaymentTypes { get; private set; } = new(DatabaseManager.Find<PaymentType>()!);
 
         #region Constructors
-        internal BookingController() => AfterUpdate += OnAfterUpdate;
+        internal BookingController() 
+        {
+            AfterUpdate += OnAfterUpdate;
+        }
 
         public BookingController(Booking booking) : this() 
         {
@@ -29,6 +33,7 @@ namespace SkipManagement.Controller
         }
         #endregion
 
+        #region Event Subscriptions
         private void OnBeforeRecordNavigation(object? sender, AllowRecordMovementArgs e)
         {
             if (CurrentRecord != null)
@@ -49,12 +54,6 @@ namespace SkipManagement.Controller
                 CurrentRecord?.SetAddress(null);
                 return;
             }
-
-            if (e.Is(nameof(Address)) && CurrentRecord != null)
-            {
-                await CurrentRecord.FetchCustomerAddress();
-                return;
-            }
         }
 
         private async void OnAfterUpdate(object? sender, AfterUpdateArgs e)
@@ -62,6 +61,7 @@ namespace SkipManagement.Controller
             if (e.Is(nameof(CurrentRecord)))
                 await RequeryAddress();
         }
+        #endregion
 
         private async Task RequeryAddress()
         {

@@ -20,6 +20,8 @@ namespace SkipManagement.Model
         public string FirstName { get => _firstName; set => UpdateProperty(ref value, ref _firstName); }
         [Field]
         public string LastName { get => _lastName; set => UpdateProperty(ref value, ref _lastName); }
+
+        public string FullName { get => $"{FirstName} {LastName}"; }
         #endregion
 
         #region Constructors
