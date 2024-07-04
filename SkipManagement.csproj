@@ -11,15 +11,22 @@
 	<Copyright>Salvatore Amaddio</Copyright>
 	<IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
 	<SignAssembly>False</SignAssembly>
+	<ApplicationIcon>skip.ico</ApplicationIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Images\skip.png" />
+  </ItemGroup>
 
   <ItemGroup>
     <Content Include="Data\mydb.db">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="skip.ico" />
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Images\" />
     <Folder Include="View\Booking\" />
   </ItemGroup>
 
