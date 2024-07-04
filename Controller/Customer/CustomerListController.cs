@@ -3,6 +3,7 @@ using Backend.Model;
 using FrontEnd.Controller;
 using FrontEnd.Events;
 using SkipManagement.Model;
+using SkipManagement.View;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,20 +14,37 @@ namespace SkipManagement.Controller
 {
     public class CustomerListController : AbstractFormListController<Customer>
     {
-        public override AbstractClause InstantiateSearchQry() =>
-            new Customer().Select().All().From();
+        internal CustomerListController() 
+        {
+            AfterUpdate += OnAfterUpdate;
+        }
+
+        private async void OnAfterUpdate(object? sender, AfterUpdateArgs e)
+        {
+            if (e.Is(nameof(Search))) 
+            {
+                await OnSearchPropertyRequeryAsync(sender);
+            }
+        }
 
         public override void OnOptionFilterClicked(FilterEventArgs e)
         {
         }
 
-        public override Task<IEnumerable<Customer>> SearchRecordAsync()
+        public override async Task<IEnumerable<Customer>> SearchRecordAsync()
         {
-            throw new NotImplementedException();
+            SearchQry.AddParameter("name", Search.ToLower() + "%");
+            return await CreateFromAsyncList(SearchQry.Statement(), SearchQry.Params());
         }
 
         protected override void Open(Customer model)
         {
+            CustomerForm customerForm = new(model);
+            customerForm.ShowDialog();
         }
+
+        public override AbstractClause InstantiateSearchQry() =>
+        new Customer().Select().All().From().Where().Like("LOWER(CustomerName)", "@name");
+
     }
 }

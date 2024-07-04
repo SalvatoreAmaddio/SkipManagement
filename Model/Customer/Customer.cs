@@ -10,7 +10,7 @@ namespace SkipManagement.Model
         #region backing fields
         private long _customerid;
         private string _customerName = string.Empty;
-        private string _phoneNumber = string.Empty;
+        private string _telephone = string.Empty;
         private string _email = string.Empty;
         #endregion
 
@@ -22,7 +22,7 @@ namespace SkipManagement.Model
         public string CustomerName { get => _customerName; set => UpdateProperty(ref value, ref _customerName); }
 
         [Field]
-        public string PhoneNumber { get => _phoneNumber; set => UpdateProperty(ref value, ref _phoneNumber); }
+        public string Telephone { get => _telephone; set => UpdateProperty(ref value, ref _telephone); }
 
         [Field]
         public string Email { get => _email; set => UpdateProperty(ref value, ref _email); }
@@ -35,7 +35,7 @@ namespace SkipManagement.Model
         {
             _customerid = db.GetInt64(0);
             _customerName = db.GetString(1);
-            _phoneNumber = db.GetString(2);
+            _telephone = db.GetString(2);
             _email = db.GetString(3);
         }
         #endregion

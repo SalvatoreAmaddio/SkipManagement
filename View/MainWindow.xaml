@@ -46,7 +46,11 @@
             </TabItem>
             
             <TabItem Header="Customers">
-
+                <Frame>
+                    <Frame.Content>
+                        <local:CustomerList/>
+                    </Frame.Content>
+                </Frame>
             </TabItem>
             
             <TabItem Header="Drivers">

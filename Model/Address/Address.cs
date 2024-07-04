@@ -59,6 +59,6 @@ namespace SkipManagement.Model
                 RaisePropertyChanged(nameof(City));
         }
 
-        public override string ToString() => $"{StreetNum}, {StreetName} - {FurtherInfo}. {PostCode}";
+        public override string ToString() => $"{StreetNum}, {StreetName} {FurtherInfo}. {PostCode}, {City}";
     }
 }
