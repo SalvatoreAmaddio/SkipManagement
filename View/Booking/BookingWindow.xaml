@@ -1,0 +1,82 @@
+﻿<Window x:Class="SkipManagement.View.BookingWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SkipManagement.View"
+        mc:Ignorable="d"
+        xmlns:fr="clr-namespace:FrontEnd.Forms;assembly=FrontEnd"
+        xmlns:controller="clr-namespace:SkipManagement.Controller"
+        d:DataContext="{d:DesignInstance Type=controller:BookingController, IsDesignTimeCreatable=False}"
+        Language="en-GB"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        Title="Booking Window" Height="600" Width="500">
+
+    <fr:Form Padding="5">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="300"/>
+                <ColumnDefinition Width="200"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="120"/>
+                <RowDefinition Height="10"/>
+                <RowDefinition Height="155"/>
+                <RowDefinition Height="10"/>
+                <RowDefinition Height="185"/>
+                <RowDefinition Height="35"/>
+            </Grid.RowDefinitions>
+
+            <GroupBox Header="Customers' Info" Padding="5" Grid.Column="0">
+                <Grid fr:Definition.RowDefinitions="30,30,30" fr:Definition.ColumnDefinitions="70,200">
+                    <Label Content="Customer"/>
+                    <fr:Combo Grid.Column="1"/>
+                    <Label Grid.Row="1" Content="Address"/>
+                    <fr:Combo Grid.Row="1" Grid.Column="1"/>
+                    <Label Grid.Row="3" Content="Licence"/>
+                    <CheckBox Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                    <Label Grid.Column="1" Grid.Row="3" Content="Bay Suspension"/>
+                    <CheckBox Grid.Column="1" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="90,0,0,0"/>
+                </Grid>
+            </GroupBox>
+
+            <GroupBox Grid.Row="2" Header="Timing" Padding="5" Grid.Column="0">
+                <Grid fr:Definition.RowDefinitions="30,30,30,30" fr:Definition.ColumnDefinitions="80,190">
+                    <Label Content="Start Date"/>
+                    <fr:TextBoxDate Grid.Row="0" Grid.Column="1"/>
+                    <Label Grid.Row="1" Content="Time"/>
+                    <fr:Text Grid.Row="1" Grid.Column="1" Text="{Binding CurrentRecord.TimeOf, Converter={StaticResource TimeBox}}"/>
+                    <Label Grid.Row="2" Content="Deadline"/>
+                    <fr:TextBoxDate Grid.Row="2" Grid.Column="1"/>
+                    <Label Grid.Row="3" Content="Countdown"/>
+                    <fr:Text Grid.Row="3" Grid.Column="1"/>
+                </Grid>
+            </GroupBox>
+
+            <GroupBox Grid.Row="4" Header="Job Details" Padding="5" Grid.Column="0">
+                <Grid fr:Definition.RowDefinitions="30,30,30,30,30" fr:Definition.ColumnDefinitions="90,180">
+                    <Label Content="Skip"/>
+                    <fr:Combo Grid.Column="1" Grid.Row="0"/>
+                    <Label Grid.Row="1" Content="Job"/>
+                    <fr:Combo Grid.Column="1" Grid.Row="1"/>
+                    <Label Grid.Row="2" Content="Days for skip"/>
+                    <fr:Text Grid.Column="1" Grid.Row="2"/>
+                    <Label Grid.Row="3" Content="Driver"/>
+                    <fr:Combo Grid.Column="1" Grid.Row="3"/>
+                    <Label Grid.Row="4" Content="Status"/>
+                    <fr:Combo Grid.Column="1" Grid.Row="4"/>
+                </Grid>
+            </GroupBox>
+
+            <Button Content="NEXT JOB" Grid.Row="5" VerticalAlignment="Bottom" HorizontalAlignment="Left" Padding="5"/>
+
+            <GroupBox Header="COMMANDS" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Padding="5">
+                <StackPanel>
+                    <fr:SaveButton Height="30" HorizontalAlignment="Stretch"/>
+                    <fr:DeleteButton Height="30" HorizontalAlignment="Stretch"/>
+                </StackPanel>
+            </GroupBox>
+        </Grid>
+    </fr:Form>
+</Window>

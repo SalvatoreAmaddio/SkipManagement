@@ -3,11 +3,7 @@ using Backend.Model;
 using FrontEnd.Controller;
 using FrontEnd.Events;
 using SkipManagement.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using SkipManagement.View;
 
 namespace SkipManagement.Controller
 {
@@ -27,6 +23,7 @@ namespace SkipManagement.Controller
 
         protected override void Open(Booking model)
         {
+            new BookingWindow().ShowDialog();
         }
     }
 }
