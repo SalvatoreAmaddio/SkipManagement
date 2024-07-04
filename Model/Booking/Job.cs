@@ -25,6 +25,8 @@ namespace SkipManagement.Model
         #region Constructors
         public Job() { }
         public Job(long id) => _jobId = id;
+        public Job(long id, string name) : this(id) => _jobName = name;
+
         public Job(DbDataReader db)
         {
             _jobId = db.GetInt64(0);

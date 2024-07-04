@@ -25,6 +25,7 @@ namespace SkipManagement.Model
         #region Constructor
         public Skip() { }
         public Skip(long id) => _skipid = id;
+        public Skip(long id, string name) : this(id) => _skipName = name;
         public Skip(DbDataReader db) 
         {
             _skipid = db.GetInt64(0);

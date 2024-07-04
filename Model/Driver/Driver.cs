@@ -25,6 +25,12 @@ namespace SkipManagement.Model
         #region Constructors
         public Driver() { }
         public Driver(long id) => _driverid = id;
+        public Driver(long id, string firstName, string lastName) : this(id)
+        {
+            _firstName = firstName;
+            _lastName = lastName;
+        }
+
         public Driver(DbDataReader db) 
         {
             _driverid = db.GetInt64(0);

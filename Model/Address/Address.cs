@@ -39,6 +39,18 @@ namespace SkipManagement.Model
         }
 
         public Address(long id) : this() => _addressid = id;
+        public Address(long id, string num, string name, string info) : this(id) 
+        {
+            _streetNum = num;
+            _streetName = name;
+            _furtherInfo = info;
+        }
+
+        public Address(long id, string num, string name, string info, PostCode code) : this(id,num,name,info)
+        {
+            _postCode = code;
+        }
+
         public Address(DbDataReader db) : this()
         {
             _addressid = db.GetInt64(0);

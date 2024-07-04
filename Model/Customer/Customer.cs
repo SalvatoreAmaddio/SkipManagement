@@ -31,6 +31,8 @@ namespace SkipManagement.Model
         #region Constructor
         public Customer() { }
         public Customer(long id) => _customerid = id;
+        public Customer(long id, string name) : this(id) => _customerName = name;
+
         public Customer(DbDataReader db)
         {
             _customerid = db.GetInt64(0);

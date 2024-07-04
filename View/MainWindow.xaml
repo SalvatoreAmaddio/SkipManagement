@@ -65,7 +65,11 @@
             </TabItem>
             
             <TabItem Header="Bookings">
-
+                <Frame>
+                    <Frame.Content>
+                        <local:BookingList/>
+                    </Frame.Content>
+                </Frame>
             </TabItem>
         </TabControl>
     </Grid>

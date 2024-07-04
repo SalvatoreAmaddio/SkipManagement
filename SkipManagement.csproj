@@ -27,10 +27,6 @@
     </Resource>
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="View\Booking\" />
-  </ItemGroup>
-
 	<ItemGroup>
 		<PackageReference Include="DesktopBusinessAppSharpBuilder" Version="1.0.41" />
 	</ItemGroup>
