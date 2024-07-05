@@ -76,9 +76,9 @@ namespace SkipManagement.Model
                 if (Countdown.Equals("N/A"))
                     return $"N/A";
                 if (Convert.ToInt32(Countdown) > 0)
-                    return $"{Countdown}day(s) left";
+                    return $"{Countdown} day(s) left";
                 else
-                    return $"{Countdown}day(s) delay!";
+                    return $"{Countdown} day(s) delay!";
             }
         }
         #endregion
