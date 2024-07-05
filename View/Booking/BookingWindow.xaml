@@ -68,7 +68,7 @@
                 </StackPanel>
             </GroupBox>
 
-            <Button Content="NEXT JOB" Grid.Column="1" Grid.Row="6" VerticalAlignment="Bottom" HorizontalAlignment="Center" Padding="5"/>
+            <Button Content="NEXT JOB" Grid.Column="1" Grid.Row="6" VerticalAlignment="Bottom" HorizontalAlignment="Center" Padding="5" Visibility="{Binding NextJobVisibility}" Command="{Binding NextJobCMD}"/>
         </Grid>
     </fr:Form>
 </Window>

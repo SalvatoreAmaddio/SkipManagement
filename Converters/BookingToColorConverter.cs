@@ -12,7 +12,12 @@ namespace SkipManagement.Converters
             Booking booking = (Booking)value;
             if (booking.Status != null && booking.Status.StatusName.ToLower().Equals("cancelled")) return new SolidColorBrush(Colors.Yellow);
             if (booking.Status != null && booking.Status.StatusName.ToLower().Equals("done")) return new SolidColorBrush(Colors.Green);
-            if (booking.Countdown is int _int && _int <= 1) return new SolidColorBrush(Colors.Red);
+
+            try 
+            {
+                if (System.Convert.ToInt32(booking.Countdown) <= 1) return new SolidColorBrush(Colors.Red);
+            }
+            catch { }
             return new SolidColorBrush(Colors.Blue);
         }
 

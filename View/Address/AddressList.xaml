@@ -11,11 +11,7 @@
       d:DataContext="{d:DesignInstance Type=controller:AddressListController, IsDesignTimeCreatable=False}"
       xmlns:converters="clr-namespace:SkipManagement.Converters"
       Title="AddressList">
-    
-    <Page.Resources>
-        <converters:FetchCity x:Key="City"/>
-    </Page.Resources>
-    
+        
     <fr:FormList>
         <fr:FormList.Header>
             <Border Background="{StaticResource DefaultWhite}">

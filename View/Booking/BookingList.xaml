@@ -43,6 +43,7 @@
                                     <Setter Property="VerticalAlignment" Value="Center"/>
                                     <Setter Property="HorizontalAlignment" Value="Center"/>
                                     <Setter Property="Foreground" Value="White"/>
+                                    <Setter Property="FontWeight" Value="SemiBold"/>
                                 </Style>
                             </Grid.Resources>
                             <Label Content="{Binding TimeOf, Converter={StaticResource TimeBox}}"/>
