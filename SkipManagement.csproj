@@ -22,14 +22,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DesktopBusinessAppSharpBuilder\FrontEnd.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="Images\skip.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
-
-	<ItemGroup>
-		<PackageReference Include="DesktopBusinessAppSharpBuilder" Version="1.0.41" />
-	</ItemGroup>
 
 	<ItemGroup>
 	  <Compile Update="View\Driver\DriverList.xaml.cs">

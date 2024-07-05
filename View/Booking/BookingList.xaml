@@ -18,6 +18,13 @@
     </Page.Resources>
     
     <fr:FormList>
+        <fr:FormList.Header>
+            <Border Background="{StaticResource DefaultWhite}">
+                <StackPanel VerticalAlignment="Center">
+                    <fr:Text Placeholder="Search by address..." Text="{Binding Search}"/>
+                </StackPanel>
+            </Border>
+        </fr:FormList.Header>
         <fr:Lista ItemsSource="{Binding RecordSource}" SelectedItem="{Binding CurrentRecord}">
             <fr:Lista.Header>
                 <Grid fr:Definition.ColumnDefinitions="70,110,300,85,80,85,80,110,90,100,100">
@@ -30,7 +37,7 @@
                     <fr:HeaderFilter Grid.Column="7" Text="Job" IsWithinList="True" ItemsSource="{Binding JobOptions}"/>
                     <fr:HeaderFilter Grid.Column="8" Text="Driver" IsWithinList="True" ItemsSource="{Binding DriverOptions}"/>
                     <fr:HeaderFilter Grid.Column="9" Text="Status" IsWithinList="True" ItemsSource="{Binding StatusOptions}"/>
-                    <fr:HeaderFilter Grid.Column="10" Text="Countdown" IsWithinList="True" ItemsSource="{Binding CountdownOptions}"/>
+                    <Label Grid.Column="10" Content="Countdown"/>
                     <Label Grid.Column="11" Content="COMMANDS"/>
                 </Grid>
             </fr:Lista.Header>

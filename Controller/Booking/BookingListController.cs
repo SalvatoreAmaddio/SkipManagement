@@ -20,8 +20,7 @@ namespace SkipManagement.Controller
         public SourceOption StartDateOptions { get; private set; }
         public SourceOption DeadlineOptions { get; private set; }
         public SourceOption StatusOptions { get; private set; }
-        public SourceOption CountdownOptions { get; private set; }
-        internal BookingListController() 
+        internal BookingListController()
         {
             StatusOptions = new SourceOption(new RecordSource<Status>(DatabaseManager.Find<Status>()!), "StatusName");
             DriverOptions = new SourceOption(new RecordSource<Driver>(DatabaseManager.Find<Driver>()!), "FullName");
@@ -29,14 +28,20 @@ namespace SkipManagement.Controller
             CustomerOptions = new SourceOption(new RecordSource<Customer>(DatabaseManager.Find<Customer>()!), "CustomerName");
             SkipOptions = new SourceOption(new RecordSource<Skip>(DatabaseManager.Find<Skip>()!), "SkipName");
             TimeOptions = new PrimitiveSourceOption(this, "TimeOf");
-            CountdownOptions = new PrimitiveSourceOption(this, "Countdown");
             StartDateOptions = new PrimitiveSourceOption(this, "StartDate");
             DeadlineOptions = new PrimitiveSourceOption(this, "Deadline");
+            AfterUpdate += OnAfterUpdate;
+        }
+
+        private async void OnAfterUpdate(object? sender, AfterUpdateArgs e)
+        {
+            if (e.Is(nameof(Search))) 
+                await OnSearchPropertyRequeryAsync(sender);
         }
 
         public override AbstractClause InstantiateSearchQry() =>
         new Booking().Select().All().Fields("CustomerAddress.HasLicence", "CustomerAddress.HasBaySuspension", "Customer.CustomerID", "CustomerName", "Address.AddressID", "StreetNum", "StreetName", "FurtherInfo", "PostCode.PostCodeID", "Code", "City.CityID", "CityName",
-            "SkipName", "JobName", "Job.TimeFor", "FirstName", "LastName", "StatusName", "ABS(julianday(Deadline) - julianday(StartDate)) AS CountDown")
+            "SkipName", "JobName", "Job.TimeFor", "FirstName", "LastName", "StatusName", $"ABS(julianday(Deadline) - julianday(StartDate)) AS Countdown")
             .From()
             .InnerJoin(nameof(CustomerAddress), "CustomerAddressID")
             .InnerJoin(nameof(CustomerAddress), nameof(Customer), "CustomerID")
@@ -46,9 +51,13 @@ namespace SkipManagement.Controller
             .InnerJoin(nameof(Status), "StatusID")
             .InnerJoin(nameof(CustomerAddress), nameof(Address), "AddressID")
             .InnerJoin(nameof(Address), nameof(PostCode), "PostCodeID")
-            .InnerJoin(nameof(PostCode), nameof(City), "CityID");
+            .InnerJoin(nameof(PostCode), nameof(City), "CityID")
+            .Where()
+            .OpenBracket()
+            .Like("LOWER(StreetNum)", "@txt").OR().Like("LOWER(StreetName)", "@txt").OR().Like("LOWER(FurtherInfo)", "@txt").OR().Like("LOWER(Code)", "@txt").OR().Like("LOWER(CityName)", "@txt")
+            .CloseBracket();
 
-        public override async void OnOptionFilterClicked(FilterEventArgs e)
+        public override void OnOptionFilterClicked(FilterEventArgs e)
         {
             ReloadSearchQry();
             StatusOptions.Conditions<WhereClause>(SearchQry);
@@ -57,15 +66,14 @@ namespace SkipManagement.Controller
             CustomerOptions.Conditions<WhereClause>(SearchQry);
             SkipOptions.Conditions<WhereClause>(SearchQry);
             TimeOptions.Conditions<WhereClause>(SearchQry);
-            CountdownOptions.Conditions<WhereClause>(SearchQry);
             StartDateOptions.Conditions<WhereClause>(SearchQry);
             DeadlineOptions.Conditions<WhereClause>(SearchQry);
-            IEnumerable<Booking> records = await SearchRecordAsync();
-            RecordSource.ReplaceRange(records);
+            OnAfterUpdate(e, new(null, null, nameof(Search)));
         }
 
         public override async Task<IEnumerable<Booking>> SearchRecordAsync()
         {
+            SearchQry.AddParameter("txt", "%" + Search.ToLower() + "%");
             return await CreateFromAsyncList(SearchQry.Statement(), SearchQry.Params());
         }
 

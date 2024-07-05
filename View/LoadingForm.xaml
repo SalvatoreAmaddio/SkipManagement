@@ -10,9 +10,7 @@
         WindowStartupLocation="CenterScreen"
         Title="Welcome" Height="450" Width="450">
 
-    <fr:LoadingMask MainWindow="MainWindow">
-        <Border Padding="5">
-            <Image Stretch="Fill" Source="pack://application:,,,/Images/skip.png"/>
-        </Border>
+    <fr:LoadingMask MainWindow="MainWindow" Padding="5" FooterString="Developed by Salvatore Amaddio R.">
+        <Image Stretch="Fill" Source="pack://application:,,,/Images/skip.png"/>
     </fr:LoadingMask>
 </Window>

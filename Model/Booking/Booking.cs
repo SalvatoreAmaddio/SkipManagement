@@ -87,7 +87,7 @@ namespace SkipManagement.Model
         public Booking() 
         {
             SelectQry = this.Select().All().Fields("CustomerAddress.HasLicence", "CustomerAddress.HasBaySuspension", "Customer.CustomerID", "CustomerName", "Address.AddressID", "StreetNum", "StreetName", "FurtherInfo", "PostCode.PostCodeID", "Code", "City.CityID", "CityName",
-            "SkipName", "JobName", "Job.TimeFor", "FirstName", "LastName", "StatusName", "ABS(julianday(Deadline) - julianday(StartDate)) AS CountDown")
+            "SkipName", "JobName", "Job.TimeFor", "FirstName", "LastName", "StatusName", "ABS(julianday(Deadline) - julianday(StartDate)) AS Countdown")
             .From()
             .InnerJoin(nameof(CustomerAddress), "CustomerAddressID")
             .InnerJoin(nameof(CustomerAddress), nameof(Customer), "CustomerID")
