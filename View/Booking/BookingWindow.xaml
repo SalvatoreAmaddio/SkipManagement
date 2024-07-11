@@ -11,9 +11,17 @@
         Language="en-GB"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
-        Title="Booking Window" Height="625" Width="500">
+        Title="Booking Window" Height="640" Width="500">
 
     <fr:Form Padding="5">
+        <fr:Form.Menu>
+            <Menu>
+                <MenuItem Header="Status" Command="{Binding OpenStatusCMD}"/>
+                <MenuItem Header="Jobs" Command="{Binding OpenJobCMD}"/>
+                <MenuItem Header="Payment Type" Command="{Binding OpenPaymentTypeCMD}"/>
+            </Menu>
+        </fr:Form.Menu>
+        
         <Grid fr:Definition.ColumnDefinitions="300,200" fr:Definition.RowDefinitions="120,5,155,5,185,68">
 
             <GroupBox Header="Customers' Info" Padding="5" Grid.Column="0">

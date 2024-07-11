@@ -6,6 +6,7 @@ using SkipManagement.Model;
 using Backend.Events;
 using System.Windows;
 using System.Windows.Input;
+using SkipManagement.View;
 
 namespace SkipManagement.Controller
 {
@@ -21,12 +22,17 @@ namespace SkipManagement.Controller
         public RecordSource<Status> Status { get; private set; } = new(DatabaseManager.Find<Status>()!);
         public RecordSource<PaymentType> PaymentTypes { get; private set; } = new(DatabaseManager.Find<PaymentType>()!);
         public ICommand NextJobCMD { get; }
-
+        public ICommand OpenStatusCMD { get; }
+        public ICommand OpenJobCMD { get; }
+        public ICommand OpenPaymentTypeCMD { get; }
         #region Constructors
         internal BookingController()
         {
             AfterUpdate += OnAfterUpdate;
             NextJobCMD = new CMD(NextJob);
+            OpenStatusCMD = new CMD(OpenStatus);
+            OpenJobCMD = new CMD(OpenJob);
+            OpenPaymentTypeCMD = new CMD(OpenPaymentType);
         }
 
         public BookingController(Booking booking) : this()
@@ -38,6 +44,20 @@ namespace SkipManagement.Controller
             BeforeRecordNavigation += OnBeforeRecordNavigation;
         }
         #endregion
+
+        private void OpenPaymentType()
+        {
+            new PaymentTypeWindow().ShowDialog();
+        }
+
+        private void OpenStatus()
+        {
+            new StatusWindow().ShowDialog();
+        }
+        private void OpenJob()
+        {
+            new JobWindow().ShowDialog();
+        }
 
         private async void NextJob()
         {

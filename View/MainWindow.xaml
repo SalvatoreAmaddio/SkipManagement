@@ -25,9 +25,9 @@
                 <MenuItem Header="Post Code" Command="{Binding OpenPostCodeCMD}"/>
             </MenuItem>
             <MenuItem Header="Booking">
-                <MenuItem Header="Status"/>
-                <MenuItem Header="Jobs"/>
-                <MenuItem Header="Payment Type"/>
+                <MenuItem Header="Status" Command="{Binding OpenStatusCMD}"/>
+                <MenuItem Header="Jobs" Command="{Binding OpenJobCMD}"/>
+                <MenuItem Header="Payment Type" Command="{Binding OpenPaymentTypeCMD}"/>
             </MenuItem>
         </Menu>
         

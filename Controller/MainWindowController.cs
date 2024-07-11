@@ -19,6 +19,9 @@ namespace SkipManagement.Controller
         public ICommand OpenCurtainCMD { get; }
         public ICommand OpenPostCodeCMD { get; }
         public ICommand OpenCityCMD { get; }
+        public ICommand OpenStatusCMD { get; }
+        public ICommand OpenJobCMD { get; }
+        public ICommand OpenPaymentTypeCMD { get; }
         #endregion
 
         public MainWindowController(MainWindow mainWin)
@@ -32,6 +35,24 @@ namespace SkipManagement.Controller
             OpenCurtainCMD = new CMD(OpenCurtain);
             OpenCityCMD = new CMD(OpenCity);
             OpenPostCodeCMD = new CMD(OpenPostCode);
+
+            OpenStatusCMD = new CMD(OpenStatus);
+            OpenJobCMD = new CMD(OpenJob);
+            OpenPaymentTypeCMD = new CMD(OpenPaymentType);
+        }
+
+        private void OpenPaymentType()
+        {
+            new PaymentTypeWindow().ShowDialog();
+        }
+
+        private void OpenStatus()
+        {
+            new StatusWindow().ShowDialog();
+        }
+        private void OpenJob()
+        {
+            new JobWindow().ShowDialog();
         }
 
         private void OpenPostCode()

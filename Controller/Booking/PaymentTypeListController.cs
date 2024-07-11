@@ -3,29 +3,34 @@ using Backend.Model;
 using FrontEnd.Controller;
 using FrontEnd.Events;
 using SkipManagement.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SkipManagement.Controller
 {
     public class PaymentTypeListController : AbstractFormListController<PaymentType>
     {
-        public override AbstractClause InstantiateSearchQry() => new PaymentType().Select().All().From();
-
-        public override void OnOptionFilterClicked(FilterEventArgs e)
+        public PaymentTypeListController()
         {
+            OpenWindowOnNew = false;
+            AfterUpdate += OnAfterUpdate;
         }
 
-        public override Task<IEnumerable<PaymentType>> SearchRecordAsync()
+        private async void OnAfterUpdate(object? sender, AfterUpdateArgs e)
         {
-            throw new NotImplementedException();
+            if (!e.Is(nameof(Search))) return;
+            await OnSearchPropertyRequeryAsync(sender);
         }
 
-        protected override void Open(PaymentType model)
+        public override void OnOptionFilterClicked(FilterEventArgs e) { }
+
+        public override async Task<IEnumerable<PaymentType>> SearchRecordAsync()
         {
+            SearchQry.AddParameter("name", Search.ToLower() + "%");
+            return await CreateFromAsyncList(SearchQry.Statement(), SearchQry.Params());
         }
+
+        protected override void Open(PaymentType model) { }
+
+        public override AbstractClause InstantiateSearchQry() =>
+        new PaymentType().Select().All().From().Where().Like("LOWER(PaymentName)", "@name");
     }
 }
