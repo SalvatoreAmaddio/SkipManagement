@@ -5,8 +5,6 @@ VisualStudioVersion = 17.10.35013.160
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SkipManagement", "SkipManagement.csproj", "{2B88EAEF-795E-422C-8D07-709478B6D4E6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FrontEnd", "..\DesktopBusinessAppSharpBuilder\FrontEnd.csproj", "{CDEC457E-EE69-4E5A-94DD-116CE2022A09}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,10 +15,6 @@ Global
 		{2B88EAEF-795E-422C-8D07-709478B6D4E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2B88EAEF-795E-422C-8D07-709478B6D4E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2B88EAEF-795E-422C-8D07-709478B6D4E6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CDEC457E-EE69-4E5A-94DD-116CE2022A09}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CDEC457E-EE69-4E5A-94DD-116CE2022A09}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CDEC457E-EE69-4E5A-94DD-116CE2022A09}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CDEC457E-EE69-4E5A-94DD-116CE2022A09}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
