@@ -191,7 +191,15 @@ namespace SkipManagement.Model
             if (e.Is(nameof(TimeFor)))
             {
                 if (StartDate.HasValue)
-                    Deadline = StartDate.Value.AddDays(Convert.ToInt32(TimeFor));
+                    try 
+                    {
+                        Deadline = StartDate.Value.AddDays(Convert.ToInt32(TimeFor));
+                    }
+                    catch 
+                    {
+                        Deadline = null;
+                        Countdown = "N/A";
+                    }
                 else
                 {
                     Deadline = null;
@@ -241,6 +249,7 @@ namespace SkipManagement.Model
                 return await c.CreateFromAsyncList(sql, param);
             }
         }
+
         public void SetAddress(Address? address) => _address = address;
         public void SetCustomer(Customer? customer) => _customer = customer;
         public override string ToString() => $"{BookingID} - {Customer} - {Address} - {Skip} - {Job} - {Status}";

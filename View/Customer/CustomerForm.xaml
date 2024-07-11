@@ -10,7 +10,7 @@
         mc:Ignorable="d"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
-        Title="Customer" Width="665">
+        Title="Customer" Width="680" Height="500">
 
     <fr:Form Padding="5">
         <fr:Form.Menu>

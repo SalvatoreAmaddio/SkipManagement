@@ -11,7 +11,7 @@
         Language="en-GB"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
-        Title="Booking Window" Height="640" Width="500">
+        Title="Booking Window" Height="641" Width="500">
 
     <fr:Form Padding="5">
         <fr:Form.Menu>
@@ -22,7 +22,7 @@
             </Menu>
         </fr:Form.Menu>
         
-        <Grid fr:Definition.ColumnDefinitions="300,200" fr:Definition.RowDefinitions="120,5,155,5,185,68">
+        <Grid fr:Definition.ColumnDefinitions="300,130" fr:Definition.RowDefinitions="120,5,155,5,185,68">
 
             <GroupBox Header="Customers' Info" Padding="5" Grid.Column="0">
                 <Grid fr:Definition.RowDefinitions="30,30,30" fr:Definition.ColumnDefinitions="70,200">

@@ -65,6 +65,7 @@ namespace SkipManagement.Controller
             if (CurrentRecord == null) return;
             Customer? customer = CurrentRecord.Customer;
             Address? address = CurrentRecord.Address;
+            Skip? skip = CurrentRecord.Skip;
             GoNew();
             CurrentRecord.SetCustomer(customer);
             await RequeryAddress();
@@ -73,6 +74,8 @@ namespace SkipManagement.Controller
             CurrentRecord.SetAddress(address);
             await CurrentRecord.SetCustomerAddressAsync();
             CurrentRecord.RaisePropertyChanged(nameof(Address));
+
+            CurrentRecord.Skip = skip;
 
             CurrentRecord.Clean();
             NextJobVisibility = Visibility.Hidden;
