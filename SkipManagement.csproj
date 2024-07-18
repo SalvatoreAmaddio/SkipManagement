@@ -22,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="DesktopBusinessAppSharpBuilder" Version="1.0.43" />
+    <PackageReference Include="DesktopBusinessAppSharpBuilder" Version="1.0.44" />
   </ItemGroup>
 
   <ItemGroup>
