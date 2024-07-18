@@ -11,6 +11,8 @@ namespace SkipManagement
         public App()
         {
             Sys.LoadAllEmbeddedDll();
+            DatabaseManager.DatabaseName = "mydb.db";
+            DatabaseManager.LoadInApplicationData();
 
             DatabaseManager.Add(new SQLiteDatabase<Skip>());
 
